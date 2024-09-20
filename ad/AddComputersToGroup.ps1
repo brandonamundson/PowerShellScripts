@@ -1,15 +1,11 @@
 ﻿<#
 .SYNOPSIS
-Script to add AD computers to a specified group, excluding specified computer
-objects
-   
-
-.DESCRIPTION
-
+    Script to add AD computers to a specified group, excluding specified computer
+    objects
    
 
 .OUTPUTS
-Outputs log file and csv file under $PSScriptRoot\Logs
+    Outputs log file and csv file under $PSScriptRoot\Logs
    
 
 .NOTES
