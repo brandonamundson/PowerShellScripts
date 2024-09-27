@@ -19,14 +19,12 @@
     PS>.\getInactiveComputersinAD.ps1 -FilePath "C:\Path\To\File.csv"
     PS>.\getInactiveComputersinAD.ps1 -DaysInactive 30
     
-
 .NOTES
     Version: 2.0
     Author: Brandon Amundson
     Creation Date: 07/30/2024
     Purpose/Change: Added Script parameters for better operability and
     added documentation
-
 #>
 
 [CmdletBinding(DefaultParameterSetName = 'Dated')]
@@ -40,7 +38,6 @@ Param(
     [int]
     $DaysInactive = 30
 )
-
 #Requires -RunAsAdministrator
 
 # Get date format for logging

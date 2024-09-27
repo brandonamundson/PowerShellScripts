@@ -29,14 +29,14 @@ Param(
 # array to store the hash table of the user and the group they are apart of
 $name = @()
 # get all groups that match the filter
-$groups = get-adgroup -filter "name -like `"*$GroupName*`"" | Where-Object { "$_.GroupCategory -eq 'Distribution'" }
+$groups = Get-ADGroup -Filter "Name -like `"*$GroupName*`"" | Where-Object { "$_.GroupCategory -eq 'Distribution'" }
 
 foreach($group in $groups)
 {
     # empty array to hold the names of every member of the group, init to be
     # empty for each loop
     $names = @()
-    $names += (get-adgroupmember -Identity $group | Select-Object Name).Name
+    $names += (Get-ADGroupMember -Identity $group | Select-Object Name).Name
     # for each name on the list, add it to the name array along with the
     # name of the group
     $names | ForEach-Object { $name += "$($group.Name),$_" }

@@ -22,4 +22,4 @@ Param(
 )
 #Requires -RunAsAdministrator
 
-(Get-ADUser $UserName -Properties MemberOf).MemberOf | Sort-Object
+(Get-ADUser -Identity $UserName -Properties MemberOf).MemberOf | Sort-Object
