@@ -2,11 +2,9 @@
 .SYNOPSIS
     Get all departments from AD with either a pre-provided list of usernames
     or by searching all of ad for users.
-    
 
 .INPUTS
     Input file of usernames with header USN
-   
 
 .EXAMPLE
     PS>getDepartments.ps1
@@ -18,7 +16,6 @@
     Author: Brandon Amundson
     Creation Date: 09/19/2024
     Purpose/Change: Initial script development
-
 #>
 
 [CmdletBinding(DefaultParameterSetName = 'AD')]

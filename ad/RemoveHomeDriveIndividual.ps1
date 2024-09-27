@@ -24,6 +24,7 @@ param(
     [string]
     $UserName
 )
+#Requires -RunAsAdministrator
 
 # Start Transcript log -- append or create as needed
 Start-Transcript -Path "$PSScriptRoot\Logs\RemoveHomeDrive.log" -Append
@@ -34,9 +35,9 @@ Get-AdUser -Identity $UserName -Properties HomeDirectory,HomeDrive | ForEach-Obj
     # If home drive is not null, output status update and remove before 
     # stating complete
     if ($_.HomeDrive -ne $null) {
-     Write-Host -NoNewline "|-  Current home:" $_.HomeDrive "->" $_.HomeDirectory": removing... "
-     Set-AdUser -Identity $_.DistinguishedName -HomeDirectory $null -HomeDrive $null
-     Write-Host "Done."
+        Write-Host -NoNewline "|-  Current home:" $_.HomeDrive "->" $_.HomeDirectory": removing... "
+        Set-AdUser -Identity $_.DistinguishedName -HomeDirectory $null -HomeDrive $null
+        Write-Host "Done."
     }
  }
  # Stop transcription logging

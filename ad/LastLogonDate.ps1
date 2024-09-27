@@ -38,10 +38,10 @@ $ignore = Get-Content "$PSScriptRoot\ADUserstoIgnore.csv"
 Start-Transcript -Path "$File.log"
 
 # Get all enabled users not on ignore list
-$user = get-aduser -filter {Enabled -eq $TRUE} | Select-Object SamAccountName |
+$user = Get-ADUser -Filter {Enabled -eq $TRUE} | Select-Object SamAccountName |
     Where-Object { $ignore -notcontains $_.SamAccountName }
 
-    # For each user, get if enabled, last logon date, and last logon where
+# For each user, get if enabled, last logon date, and last logon where
 # last logon is not null
 $users = $user.SamAccountName | ForEach-Object {
     Get-ADUser -Identity $_ -Properties Enabled,LastLogonDate,LastLogon |
