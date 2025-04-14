@@ -14,21 +14,21 @@
     PS>RemoveGroupMember.ps1 <GROUPNAME> <USERNAME>
 
 .NOTES
-    Version: 1.0
+    Version: 1.1
     Author: Brandon Amundson
     Creation Date: 09/26/2024
-    Purpose/Change: Initial script development
+    Purpose/Change: Improvement to error handling
 #>
 Param(
-    # AD Group name to remove user from
-    [Parameter(ValueFromPipeline=$true,ValueFromPipelineByPropertyName=$true,Mandatory)]
-    [string]
-    $GroupName,
+	# AD Group name to remove user from
+	[Parameter(ValueFromPipeline = $true, ValueFromPipelineByPropertyName = $true, Mandatory)]
+	[string]
+	$GroupName,
 
-    # Username of AD User to remove from AD Group
-    [Parameter(ValueFromPipeline=$true,ValueFromPipelineByPropertyName=$true,Mandatory)]
-    [string]
-    $UserName
+	# Username of AD User to remove from AD Group
+	[Parameter(ValueFromPipeline = $true, ValueFromPipelineByPropertyName = $true, Mandatory)]
+	[string]
+	$UserName
 )
 #Requires -RunAsAdministrator
 
@@ -39,11 +39,14 @@ Start-Transcript -Path $LogFile -append
 # Write Output
 Write-Output "Removing $UserName from Distribution Group $GroupName"
 
-# If group was removed, output true
-if(Remove-ADGroupMember -Identity $GroupName -Members $UserName -Confirm:$True) {
-    Write-Output "$UserName removed from $GroupName successfully"
+# Try removing user from group
+try {
+	Remove-ADGroupMember -Identity $GroupName -Members $UserName -Confirm:$True -ErrorAction Stop
+	Write-Output "$UserName removed from $GroupName successfully"
 }
-# Otherwise output false
-else { Write-Output "Removing $UserName from GroupName failed" }
+# If failure, output failure
+catch {
+	Write-Output "Removing $UserName from GroupName failed"
+}
 
 Stop-Transcript
